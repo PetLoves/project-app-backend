@@ -1,18 +1,35 @@
 'use strict';
+const serverless = require('serverless-http');
+const express = require('express');
+const app = express();
+app.use(express.json());
+const cors = require('cors');
+app.use(cors());
+const uuidv4 = require('uuid/v4');
+const mysql = require('mysql');
 
-module.exports.hello = async event => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+const connection = mysql.createConnection({
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.DB_PASSWORD,
+  database : process.env.DB_SCHEMA
+});
+
+
+// Retrieving tasks
+app.get('/tasks', function (req, res) {
+
+  // Reconfigure DB so that taskID is void, uuid is the taskId, and make tasks default to user 1.
+  connection.query('SELECT * FROM `task` WHERE `userId` = 1', function (error, results, fields) {
+    // error will be an Error if one occurred during the query
+    if(error) {
+      console.error("Your query had a problem with fetching tasks", error);
+      res.status(500).json({errorMessage: error});
+    }
+    else {
+      // Query was successful
+      res.json({tasks: results});
+    }
+  });
+});
