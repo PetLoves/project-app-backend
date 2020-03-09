@@ -33,3 +33,5 @@ app.get('/pets', function (req, res) {
     }
   });
 });
+
+module.exports.pets = serverless(app);
