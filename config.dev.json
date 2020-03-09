@@ -1,0 +1,6 @@
+{
+    "DB_HOST" : "tr-course-rds-instance-coafej8tch0x.eu-west-2.rds.amazonaws.com",
+    "DB_USER" : "root",
+    "DB_PASSWORD" : "walden31",
+    "DB_SCHEMA" : "petloves"
+}

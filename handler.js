@@ -5,7 +5,6 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 app.use(cors());
-const uuidv4 = require('uuid/v4');
 const mysql = require('mysql');
 
 
@@ -18,10 +17,10 @@ const connection = mysql.createConnection({
 
 
 // Retrieving tasks
-app.get('/tasks', function (req, res) {
+app.get('/petloves', function (req, res) {
 
   // Reconfigure DB so that taskID is void, uuid is the taskId, and make tasks default to user 1.
-  connection.query('SELECT * FROM `task` WHERE `userId` = 1', function (error, results, fields) {
+  connection.query('SELECT * FROM pets', function (error, results, fields) {
     // error will be an Error if one occurred during the query
     if(error) {
       console.error("Your query had a problem with fetching tasks", error);
