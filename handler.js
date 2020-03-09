@@ -18,18 +18,18 @@ const connection = mysql.createConnection({
 
 
 // Retrieving tasks
-app.get('/tasks', function (req, res) {
+app.get('/pets', function (req, res) {
 
   // Reconfigure DB so that taskID is void, uuid is the taskId, and make tasks default to user 1.
-  connection.query('SELECT * FROM `task` WHERE `userId` = 1', function (error, results, fields) {
+  connection.query('SELECT * FROM `pets`', function (error, results, fields) {
     // error will be an Error if one occurred during the query
     if(error) {
-      console.error("Your query had a problem with fetching tasks", error);
+      console.error("Your query had a problem with fetching pets", error);
       res.status(500).json({errorMessage: error});
     }
     else {
       // Query was successful
-      res.json({tasks: results});
+      res.json({petloves: results});
     }
   });
 });
