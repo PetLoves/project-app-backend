@@ -18,3 +18,10 @@ functions:
           path: pets
           method: get
           cors: true
+  users:
+    handler: handler.users
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
