@@ -18,6 +18,10 @@ functions:
           path: pets
           method: get
           cors: true
+      - http:
+          path: pets/{garden}
+          method: get
+          cors: true
   users:
     handler: handler.users
     events:

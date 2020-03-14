@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 const cors = require('cors');
 app.use(cors());
-const uuidv4 = require('  uuid/v4');
+const uuidv4 = require('uuid/v4');
 const mysql = require('mysql');
 
 
@@ -18,20 +18,22 @@ const connection = mysql.createConnection({
 
 
 // Retrieving pets from DB
-app.get('/pets', function (req, res) {
-  connection.query('SELECT * FROM `pets`', function (error, results, fields) {
-    if(error) {
-      console.error("Your query had a problem with fetching pets", error);
-      res.status(500).json({errorMessage: error});
-    }
-    else {
-      res.json({petloves: results});
-    }
-  });
+app.get('/pets/:garden', function (req, res) {
+  const userHasGarden = req.params;
+  //IF HAS A GARDEN - HAS GARDEN = TRUE SELECT WHERE GARDEN FOR PET = TRUE
+    connection.query('SELECT * FROM `pets` WHERE `needs_garden` = ?', [userHasGarden.garden], function (error, results, fields) {
+      if(error) {
+        console.error("Your query had a problem with fetching pets", error);
+        res.status(500).json({errorMessage: error});
+      }
+      else {
+        res.json({petloves: results});
+      }
+    });
 });
 
 //Adding users answers to DB
-app.post('/users/', function (req, res) {
+app.post('/users', function (req, res) {
   const userToAdd = req.body;
   userToAdd.userId = uuidv4();
   connection.query('INSERT INTO `users` SET ?', userToAdd, function (error, results, fields) {
