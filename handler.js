@@ -18,6 +18,10 @@ const connection = mysql.createConnection({
 
 
 // Retrieving pets from DB
+
+
+
+//FILTERING PETS BASED ON QUERY 
 app.get('/pets/:garden?', function (req, res) {
   var garden = req.query.hasGarden
   //IF HAS A GARDEN - HAS GARDEN = TRUE SELECT WHERE GARDEN FOR PET = TRUE
@@ -31,6 +35,18 @@ app.get('/pets/:garden?', function (req, res) {
       }
     });
 });
+
+// app.get('/pets', function (req, res) {
+//   connection.query('SELECT * FROM `pets`', function (error, results, fields) {
+//     if(error) {
+//       console.error("Your query had a problem with fetching pets", error);
+//       res.status(500).json({errorMessage: error});
+//     }
+//     else {
+//       res.json({petloves: results});
+//     }
+//   });
+// });
 
 //Adding users answers to DB
 app.post('/users', function (req, res) {
