@@ -23,12 +23,14 @@ app.get('/petloves', function (req, res) {
   connection.query('SELECT * FROM pets', function (error, results, fields) {
     // error will be an Error if one occurred during the query
     if(error) {
-      console.error("Your query had a problem with fetching tasks", error);
+      console.error("Your query had a problem with fetching pets", error);
       res.status(500).json({errorMessage: error});
     }
     else {
       // Query was successful
-      res.json({tasks: results});
+      res.json({petloves: results});
     }
   });
 });
+
+module.exports.pets = serverless(app);
