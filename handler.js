@@ -18,11 +18,12 @@ const connection = mysql.createConnection({
 
 // Retrieving pets from DB
 //FILTERING PETS BASED ON QUERY 
-app.get('/pets/:garden?/:children?', function (req, res) {
+app.get('/pets/:garden?/:children?/:activity?', function (req, res) {
   var garden = req.query.hasGarden
   var children = req.query.hasChildren
+  var activity = req.query.activitylevel
   //IF HAS A GARDEN - HAS GARDEN = TRUE SELECT WHERE GARDEN FOR PET = TRUE
-    connection.query('SELECT * FROM `pets` WHERE `needs_garden` = ? AND `likes_children` = ?', [garden, children], function (error, results, fields) {
+    connection.query('SELECT * FROM `pets` WHERE `needs_garden` = ? AND `likes_children` = ? AND `activity_level` = ?', [garden, children, activity], function (error, results, fields) {
       if(error) {
         console.error("Your query had a problem with fetching pets", error);
         res.status(500).json({errorMessage: error});

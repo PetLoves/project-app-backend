@@ -19,7 +19,7 @@ functions:
           method: get
           cors: true
       - http:
-          path: pets/{garden}/{children}
+          path: pets/{garden}/{children}/{activity}
           method: get
           cors: true
   users:
