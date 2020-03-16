@@ -16,16 +16,15 @@ const connection = mysql.createConnection({
   database : process.env.DB_SCHEMA
 });
 
-
 // Retrieving pets from DB
-
-
-
 //FILTERING PETS BASED ON QUERY 
-app.get('/pets/:garden?', function (req, res) {
+app.get('/pets/:garden?/:children?/:activity?/:company?', function (req, res) {
   var garden = req.query.hasGarden
+  var children = req.query.hasChildren
+  var activity = req.query.activitylevel
+  var company = req.query.companyNeeded
   //IF HAS A GARDEN - HAS GARDEN = TRUE SELECT WHERE GARDEN FOR PET = TRUE
-    connection.query('SELECT * FROM `pets` WHERE `needs_garden` = ?', garden, function (error, results, fields) {
+    connection.query('SELECT * FROM `pets` WHERE `needs_garden` = ? AND `likes_children` = ? AND `activity_level` = ? AND `needs_company` = ?', [garden, children, activity, company], function (error, results, fields) {
       if(error) {
         console.error("Your query had a problem with fetching pets", error);
         res.status(500).json({errorMessage: error});
