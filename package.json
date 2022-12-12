@@ -5,7 +5,7 @@
   "main": "handler.js",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mysql": "^2.18.1",
     "serverless": "^1.66.0",
     "serverless-http": "^2.3.2",
